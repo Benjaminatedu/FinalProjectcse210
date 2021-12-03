@@ -8,8 +8,8 @@ namespace cse210_batter_csharp
         {
             SetWidth(Constants.PARASITE_WIDTH);
             SetHeight(Constants.PARASITE_HEIGHT);
-            SetPosition(new Point(0,Constants.MAX_Y/2));
-            //SetImage(Constants.IMAGE_PARASITE);
+            SetPosition(new Point(25,Constants.MAX_Y/2));
+            SetImage(Constants.IMAGE_PARASITE);
         }
     }
 }

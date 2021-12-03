@@ -23,8 +23,16 @@ namespace cse210_batter_csharp.Scripting
             
             Actor parasite = cast["parasite"][0];
 
-            Point velocity = direction.Scale(Constants.PADDLE_SPEED);
+            Point velocity = direction.Scale(Constants.PARASITE_SPEED);
             parasite.SetVelocity(velocity);
+            if (parasite.GetVelocity().GetX() == - Constants.PARASITE_SPEED)
+            {
+                parasite.SetImage(Constants.IMAGE_PARASITE_FLIPPED);
+            }
+            if (parasite.GetVelocity().GetX() == Constants.PARASITE_SPEED)
+            {
+                parasite.SetImage(Constants.IMAGE_PARASITE);
+            }
         }
     }
 }

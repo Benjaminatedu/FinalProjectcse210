@@ -21,8 +21,8 @@ namespace cse210_batter_csharp
 
         public const string IMAGE_PARASITE = "./Assets/parasite.png";
         public const string IMAGE_PARASITE_FLIPPED = "./Assets/parasite-flipped.png";
-        public const string IMAGE_ZOMBIE = "./Assets/zombie.png";
-        public const string IMAGE_ZOMBIE_BACK = "./Assets/zombie-back.png";
+        public const string IMAGE_ZOMBIE = "./Assets/zombie-back.png";
+        public const string IMAGE_ZOMBIE_BACK = "./Assets/zombie.png";
         public const string IMAGE_BACKGROUND = "./Assets/brick-background.png";
 
         public const string SOUND_START = "./Assets/start.wav";
@@ -35,6 +35,10 @@ namespace cse210_batter_csharp
         public const int TWO_BARREL_WIDTH = 96;
         public const int TWO_BARREL_HEIGHT = 64;
 
+        public const string HEART_IMAGE = "./Assets/heart.png";
+        public const int HEART_HEIGHT = 50;
+        public const int HEART_WIDTH = 50;
+
         public const int BARREL_GROUP_WIDTH = 225;
         public const int BARREL_GROUP_HEIGHT = 113;
 
@@ -43,7 +47,7 @@ namespace cse210_batter_csharp
 
         public const int BRICK_SPACE = 5;
 
-        public const int PADDLE_SPEED = 15;
+        public const int PARASITE_SPEED = 10;
 
         public const int PARASITE_WIDTH = 73;
         public const int PARASITE_HEIGHT = 40;

@@ -11,32 +11,41 @@ namespace cse210_batter_csharp.Scripting
     /// </summary>
     public class MoveLocationAction : Action
     {
-        private int level = 0;
-        private Actor _parasite;
-        private Actor _prevEnemy;
-        private Dictionary<string,List<Actor>> _cast;
-        public MoveLocationAction(Dictionary<string,List<Actor>> cast)
+        public List<List<Actor>> _roomList;
+        public int _roomNum = 0;
+        public MoveLocationAction(List<List<Actor>> roomList)
         {
-            _parasite = cast["parasite"][0];
-            _cast = cast;
-            _prevEnemy = cast["enemies"][0];
+            _roomList = roomList;
         }
-
         public override void Execute(Dictionary<string, List<Actor>> cast)
         {
-            if(_parasite.GetRightEdge() >= Constants.MAX_X - 15)
+            if (cast["parasite"].Count > 0)
             {
-                if(level == 0)
+                Actor parasite = cast["parasite"][0];
+
+                if (parasite.GetX() >= Constants.MAX_X - 15)
                 {
-                    cast["enemies"].Add(new Enemies(_prevEnemy.GetX() - Constants.ZOMBIE_WIDTH,Constants.MAX_Y / 2));
-                    _parasite.SetPosition(new Point(0,_parasite.GetY()));
-                    level++;
+                    _roomNum ++;
+                    if (_roomNum == 4)
+                    {
+                        _roomNum = 0;
+                    }
+                    parasite.SetPosition(new Point(20,parasite.GetY()));
                 }
-                else if(level == 1)
+
+                if (parasite.GetX() < 15)
                 {
-                    cast["enemies"].Add(new Enemies(_prevEnemy.GetX() - Constants.ZOMBIE_WIDTH,Constants.MAX_Y / 2));
-                    _parasite.SetPosition(new Point(0,_parasite.GetY()));
+                    if(_roomNum != 0)
+                    {
+                        _roomNum --;
+                    }
+                    else
+                    {
+                        _roomNum = 3;
+                    }
+                    parasite.SetPosition(new Point(Constants.MAX_X - 20,parasite.GetY()));
                 }
+                cast["enemies"] = _roomList[_roomNum];
             }
         }
     }

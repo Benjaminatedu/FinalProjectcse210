@@ -11,7 +11,9 @@ namespace cse210_batter_csharp
         static void Main(string[] args)
         {
             //Create List of Rooms
-            List<Dictionary<string,List<Actor>>> roomStructures = new List<Dictionary<string, List<Actor>>>();
+            List<List<Actor>> roomStructures = new List<List<Actor>>();
+
+            List<List<Actor>> roomEnemies = new List<List<Actor>>();
 
             //Create Cast List
             Dictionary<string,List<Actor>> cast = new Dictionary<string, List<Actor>>();
@@ -22,24 +24,34 @@ namespace cse210_batter_csharp
             //Add Backgrounds
             cast["backgrounds"].Add(new Background());
 
+            //Create Lives
+            cast["lives"] = new List<Actor>();
+
+            //Add Lives
+            for (int i = 0; i < 3; i++)
+                cast["lives"].Add(new Heart(i * Constants.HEART_WIDTH, 0));
+
             //Create Parasite
             cast["parasite"] = new List<Actor>();
 
             //Add Parasite
             cast["parasite"].Add(new Parasite());
 
-            //Create Buildings
-            cast["buildings"] = new List<Actor>();
-
             //Create Enemies
             cast["enemies"] = new List<Actor>();
 
             //Add Enemies
-            cast["enemies"].Add(new Enemies(Constants.MAX_X/2,Constants.CABIN_1_HEIGHT + 10));
+            for (int i = 0; i < 4; i++)
+            {
+                roomEnemies.Add(new List<Actor>());
+                for (int n = 0; n < 8; n++)
+                {
+                    Random rnd = new Random();
+                    roomEnemies[i].Add(new Enemies(rnd.Next(100, Constants.MAX_X - 100), rnd.Next(100, Constants.MAX_Y - 100)));
+                }
+            }
+            cast["enemies"] = roomEnemies[0];
 
- 
- 
- 
             // Create the script
             Dictionary<string, List<Action>> script = new Dictionary<string, List<Action>>();
 
@@ -65,7 +77,7 @@ namespace cse210_batter_csharp
             HandleCollisionsAction handleCollisionsAction = new HandleCollisionsAction(new PhysicsService(),cast);
             script["update"].Add(handleCollisionsAction);
 
-            MoveLocationAction moveLocationAction = new MoveLocationAction(cast);
+            MoveLocationAction moveLocationAction = new MoveLocationAction(roomEnemies);
             script["update"].Add(moveLocationAction);
 
             // Start up the game

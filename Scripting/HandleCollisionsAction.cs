@@ -18,15 +18,15 @@ namespace cse210_batter_csharp.Scripting
             _physicsService = physicsService;
         }
 
-        public void BounceY(Actor ball)
+        public void BounceY(Actor actor)
         {
-            ball.SetVelocity(new Point(ball.GetVelocity().GetX(), - ball.GetVelocity().GetY()));
+            actor.SetVelocity(new Point(actor.GetVelocity().GetX(), - actor.GetVelocity().GetY()));
             
         }
 
-        public void BounceX(Actor ball)
+        public void BounceX(Actor actor)
         {
-            ball.SetVelocity(new Point(-ball.GetVelocity().GetX(), ball.GetVelocity().GetY()));
+            actor.SetVelocity(new Point(-actor.GetVelocity().GetX(), actor.GetVelocity().GetY()));
             audioService.PlaySound(Constants.SOUND_BOUNCE);
         }
 
@@ -38,19 +38,31 @@ namespace cse210_batter_csharp.Scripting
 
             foreach(Actor enemy in cast["enemies"])
             {
-                if (_physicsService.IsCollision(parasite,enemy))
-                {
-                    cast["parasite"].Remove(parasite);
-                }
             
                 if (enemy.GetBottomEdge() >= Constants.MAX_Y)
                 {                    
                     BounceY(enemy);
+                    enemy.SetImage(Constants.IMAGE_ZOMBIE_BACK);
                 }
 
                 if(enemy.GetTopEdge() <= 0)
                 {
                     BounceY(enemy);
+                    enemy.SetImage(Constants.IMAGE_ZOMBIE);
+                }
+                
+                foreach(Actor zombie in cast["enemies"])
+                {
+                    if (_physicsService.IsCollision(zombie,parasite))
+                    {
+                        cast["lives"].RemoveAt(cast["lives"].Count - 1);
+                        parasite.SetPosition(new Point(parasite.GetX() - 50, parasite.GetY()));
+                        
+                        if (cast["lives"].Count == 0)
+                        {
+                            cast["parasite"].Clear();
+                        }
+                    }
                 }
             }
         }

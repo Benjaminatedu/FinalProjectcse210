@@ -9,11 +9,11 @@ namespace cse210_batter_csharp
         public Enemies(int x, int y)
         {
             Random rnd = new Random();
-            //SetImage(Constants.IMAGE_ZOMBIE);
+            SetImage(Constants.IMAGE_ZOMBIE);
             SetHeight(Constants.ZOMBIE_HEIGHT);
             SetWidth(Constants.ZOMBIE_WIDTH);
             SetPosition(new Point(x, y));
-            SetVelocity(new Point(0, 10));
+            SetVelocity(new Point(0,rnd.Next(10,20)));
         }
     }
 }
