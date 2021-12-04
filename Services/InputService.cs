@@ -35,6 +35,16 @@ namespace cse210_batter_csharp.Services
             return Raylib.IsKeyDown(Raylib_cs.KeyboardKey.KEY_DOWN);
         }
 
+        public bool IsFReleased()
+        {
+            return Raylib.IsKeyReleased(Raylib_cs.KeyboardKey.KEY_F);
+        }
+
+        public bool IsEnterPressed()
+        {
+            return Raylib.IsKeyReleased(Raylib_cs.KeyboardKey.KEY_ENTER);
+        }
+
         /// <summary>
         /// Gets the direction asked for by the current key presses
         /// </summary>

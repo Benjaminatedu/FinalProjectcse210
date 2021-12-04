@@ -32,38 +32,64 @@ namespace cse210_batter_csharp.Scripting
 
         public override void Execute(Dictionary<string, List<Actor>> cast)
         {
+            List<Actor> deadZombie = new List<Actor>();
+            List<Actor> deadPro = new List<Actor>();
             Actor parasite = cast["parasite"][0];
 
             List<Actor> oldStructure = new List<Actor>();
 
-            foreach(Actor enemy in cast["enemies"])
+            foreach(Actor zombie in cast["enemies"])
             {
             
-                if (enemy.GetBottomEdge() >= Constants.MAX_Y)
+                if (zombie.GetBottomEdge() >= Constants.MAX_Y)
                 {                    
-                    BounceY(enemy);
-                    enemy.SetImage(Constants.IMAGE_ZOMBIE_BACK);
+                    BounceY(zombie);
+                    zombie.SetImage(Constants.IMAGE_ZOMBIE_BACK);
                 }
 
-                if(enemy.GetTopEdge() <= 0)
+                if(zombie.GetTopEdge() <= 0)
                 {
-                    BounceY(enemy);
-                    enemy.SetImage(Constants.IMAGE_ZOMBIE);
+                    BounceY(zombie);
+                    zombie.SetImage(Constants.IMAGE_ZOMBIE);
                 }
                 
-                foreach(Actor zombie in cast["enemies"])
+                if (_physicsService.IsCollision(zombie,parasite))
                 {
-                    if (_physicsService.IsCollision(zombie,parasite))
+                    if (cast["lives"].Count != 0)
                     {
                         cast["lives"].RemoveAt(cast["lives"].Count - 1);
                         parasite.SetPosition(new Point(parasite.GetX() - 50, parasite.GetY()));
+                    }
                         
-                        if (cast["lives"].Count == 0)
-                        {
-                            cast["parasite"].Clear();
-                        }
+                    if (cast["lives"].Count == 0)
+                    {
+                        cast["endscreen"] = new List<Actor>();
+                        cast["endscreen"].Add(new Endscreen());
+                        cast["endscreen"][0].SetImage(Constants.LOSE_SCREEN_IMAGE);
                     }
                 }
+
+                foreach(Actor projectile in cast["projectiles"])
+                {
+                    if(_physicsService.IsCollision(projectile,zombie))
+                    {
+                        deadPro.Add(projectile);
+                        deadZombie.Add(zombie);
+                    }
+
+                    else if (projectile.GetX() >= Constants.MAX_X - 50)
+                    {
+                        deadPro.Add(projectile);
+                    }
+                }
+            }
+            foreach(Actor projectile in deadPro)
+            {
+                cast["projectiles"].Remove(projectile);
+            }
+            foreach(Actor zombie in deadZombie)
+            {
+                cast["enemies"].Remove(zombie);
             }
         }
     }

@@ -29,7 +29,16 @@ namespace cse210_batter_csharp
 
             //Add Lives
             for (int i = 0; i < 3; i++)
+            {
                 cast["lives"].Add(new Heart(i * Constants.HEART_WIDTH, 0));
+            }
+
+            //Create Ammo Count
+            cast["ammo"] = new List<Actor>();
+
+            //Add Ammo Count
+            cast["ammo"].Add(new Ammo(6));
+
 
             //Create Parasite
             cast["parasite"] = new List<Actor>();
@@ -51,6 +60,12 @@ namespace cse210_batter_csharp
                 }
             }
             cast["enemies"] = roomEnemies[0];
+
+            //Create Projectiles
+            cast["projectiles"] = new List<Actor>();
+
+            //Create Endscreen
+            cast["endscreen"] = new List<Actor>();
 
             // Create the script
             Dictionary<string, List<Action>> script = new Dictionary<string, List<Action>>();

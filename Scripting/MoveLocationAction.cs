@@ -29,6 +29,7 @@ namespace cse210_batter_csharp.Scripting
                     if (_roomNum == 4)
                     {
                         _roomNum = 0;
+                        cast["endscreen"].Add(new Endscreen());
                     }
                     parasite.SetPosition(new Point(20,parasite.GetY()));
                 }

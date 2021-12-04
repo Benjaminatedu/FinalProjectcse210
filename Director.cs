@@ -18,11 +18,14 @@ namespace cse210_batter_csharp
         private bool _keepPlaying = true;
         private Dictionary<string, List<Actor>> _cast;
         private Dictionary<string, List<Action>> _script;
+        private InputService _input_service;
 
         public Director(Dictionary<string, List<Actor>> cast, Dictionary<string, List<Action>> script)
         {
             _cast = cast;
             _script = script;
+            _input_service = new InputService();
+            
         }
 
         /// <summary>
@@ -41,6 +44,10 @@ namespace cse210_batter_csharp
                     _keepPlaying = false;
                 }
                 if (_cast["parasite"].Count == 0)
+                {
+                    _keepPlaying = false;
+                }
+                if (_cast["endscreen"].Count != 0 && _input_service.IsEnterPressed())
                 {
                     _keepPlaying = false;
                 }

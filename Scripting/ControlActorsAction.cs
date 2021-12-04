@@ -11,6 +11,7 @@ namespace cse210_batter_csharp.Scripting
     public class ControlActorsAction : Action
     {
         InputService _inputService;
+        private int _ammoCount = 6;
 
         public ControlActorsAction(InputService inputService)
         {
@@ -25,14 +26,29 @@ namespace cse210_batter_csharp.Scripting
 
             Point velocity = direction.Scale(Constants.PARASITE_SPEED);
             parasite.SetVelocity(velocity);
-            if (parasite.GetVelocity().GetX() == - Constants.PARASITE_SPEED)
+
+            if (_inputService.IsFReleased() && _ammoCount != 0)
             {
-                parasite.SetImage(Constants.IMAGE_PARASITE_FLIPPED);
+                cast["projectiles"].Add(new Projectile(parasite.GetX(),parasite.GetY(), 25));
+                _ammoCount --;
+                cast["ammo"][0].SetText($"Ammo: {_ammoCount}");
             }
-            if (parasite.GetVelocity().GetX() == Constants.PARASITE_SPEED)
+
+            if (cast["lives"].Count == 0)
             {
-                parasite.SetImage(Constants.IMAGE_PARASITE);
+                if (_inputService.IsEnterPressed())
+                {
+                    cast["parasite"].Clear();
+                }
             }
+             if (parasite.GetVelocity().GetX() == - Constants.PARASITE_SPEED)
+             {
+                 parasite.SetImage(Constants.IMAGE_PARASITE_FLIPPED);
+             }
+             if (parasite.GetVelocity().GetX() == Constants.PARASITE_SPEED)
+             {
+                 parasite.SetImage(Constants.IMAGE_PARASITE);
+             }
         }
     }
 }
