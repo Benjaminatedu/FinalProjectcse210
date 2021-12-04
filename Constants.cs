@@ -23,8 +23,8 @@ namespace cse210_batter_csharp
 
         public const string IMAGE_PARASITE = "./Assets/parasite.png";
         public const string IMAGE_PARASITE_FLIPPED = "./Assets/parasite-flipped.png";
-        public const string IMAGE_ZOMBIE = "./Assets/zombie.png";
-        public const string IMAGE_ZOMBIE_BACK = "./Assets/zombie-back.png";
+        public const string IMAGE_ZOMBIE = "./Assets/zombie-placeholder.png";
+        public const string IMAGE_ZOMBIE_BACK = "./Assets/zombie-placeholder.png";
         public const string IMAGE_BACKGROUND = "./Assets/brick-background.png";
 
         public const string SOUND_START = "./Assets/start.wav";
