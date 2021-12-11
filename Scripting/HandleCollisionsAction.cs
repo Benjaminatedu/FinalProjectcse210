@@ -21,6 +21,7 @@ namespace cse210_batter_csharp.Scripting
         public void BounceY(Actor actor)
         {
             actor.SetVelocity(new Point(actor.GetVelocity().GetX(), - actor.GetVelocity().GetY()));
+            audioService.PlaySound(Constants.SOUND_BOUNCE);
             
         }
 
