@@ -16,6 +16,7 @@ namespace cse210_batter_csharp
         public const int DEFAULT_FONT_SIZE = 20;
         public const int DEFAULT_TEXT_OFFSET = 4;
     
+        public const string PROJECTILE_IMAGE = "./Assets/projectile.png";
         public const string IMAGE_CABIN_1 = "./Assets/cabin1-png.png";
         public const string END_SCREEN_IMAGE = "./Assets/You-Win.png";
         public const string LOSE_SCREEN_IMAGE = "./Assets/You-Died.png";
