@@ -39,12 +39,8 @@ namespace cse210_batter_csharp.Scripting
                     if(_roomNum != 0)
                     {
                         _roomNum --;
+                        parasite.SetPosition(new Point(Constants.MAX_X - 20,parasite.GetY()));
                     }
-                    else
-                    {
-                        _roomNum = 3;
-                    }
-                    parasite.SetPosition(new Point(Constants.MAX_X - 20,parasite.GetY()));
                 }
                 cast["enemies"] = _roomList[_roomNum];
             }
